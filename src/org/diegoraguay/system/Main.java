@@ -2,8 +2,10 @@ package org.diegoraguay.system;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.diegoraguay.view.CalculadoraView;
 
 public class Main extends Application {
 
@@ -15,17 +17,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
+        //vista de la calculadora 
+        CalculadoraView calculadora = new CalculadoraView(); 
         //nodos
-        VBox root = new VBox(); 
+        Pane raiz = new Pane(calculadora.getView());
         
-        //escena
-        Scene escena = new Scene(root); 
+        //escena(nodoRaiz, ancho, largo)
+        Scene escena = new Scene(raiz, 266, 390); 
         
         //cargar escena y mostrar escenario principal
         escenarioPrincipal.setTitle("Calculadora de Diego");
         escenarioPrincipal.setScene(escena); 
         escenarioPrincipal.show();
-        
     }
-    
 }
