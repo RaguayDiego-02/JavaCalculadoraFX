@@ -1,70 +1,108 @@
 package org.diegoraguay.controller;
 
-import javafx.scene.control.Label; 
+import javafx.scene.control.Label;
 
 public class CalculadoraController {
+
     private String opcion1 = "";
     private String operador = "";
     private String opcion2 = "";
     private boolean calculoTerminado = true;
-    
-    public CalculadoraController() {       
+
+    public CalculadoraController() {
     }
-    
+
     public void procesoDeEntrada(String entrada, Label pantalla) {
         if (entrada.equals("C")) {
             opcion1 = "";
             operador = "";
             opcion2 = "";
-            pantalla.setText(""); 
+            pantalla.setText("");
         }
-        
+
         //si ya se completo un calculo //reiniciar
-        if (calculoTerminado && entrada.matches("[0-9]")){
+        if (calculoTerminado && entrada.matches("[0-9]")) {
             opcion1 = "";
             operador = "";
             opcion2 = "";
         }
         calculoTerminado = false;
-        
-        if  (entrada.matches("[0-9]")) {
-            if (operador.isEmpty()) {
-                opcion1 += entrada; 
-            }else {
-                opcion2 += entrada; 
-            }
-            
 
-            actualizarPantalla(pantalla);        
-        }else if(entrada.equals("+")) {
-            operador = entrada; 
-            actualizarPantalla(pantalla);  
-        }else if(entrada.equals("=")) {
-            if(operador.equals("+")) {
-                opcion1 = resultadoSuma(opcion1, opcion2);
+        if (entrada.matches("[0-9]")) {
+            if (operador.isEmpty()) {
+                opcion1 += entrada;
+            } else {
+                opcion2 += entrada;
+            }
+            actualizarPantalla(pantalla);
+        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("*") || entrada.equals("/")) {
+            operador = entrada;
+            actualizarPantalla(pantalla);
+        } else if (entrada.equals("=")) {
+            if (!opcion1.isEmpty() && !opcion2.isEmpty()) {
+                if (operador.equals("+")) {
+                    opcion1 = resultadoSuma(opcion1, opcion2);
+                } else if (operador.equals("-")) {
+                    opcion1 = resultadoResta(opcion1, opcion2);
+                } else if (operador.equals("*")) {
+                    opcion1 = resultadoMultiplicacion(opcion1, opcion2);
+                } else if (operador.equals("/")) {
+                    if (opcion2.equals("0")) {
+                        opcion1 = "ERROR";
+                    } else {
+                        opcion1 = resultadoDivision(opcion1, opcion2);
+                    }
+                }
                 operador = "";
                 opcion2 = "";
-                calculoTerminado = false;
-            }
+                calculoTerminado = true;
+            } 
             actualizarPantalla(pantalla);
         }
     }
     
+
     private void actualizarPantalla(Label pantalla) {
         if (operador.isEmpty()) {
-            pantalla.setText(opcion1); 
+            pantalla.setText(opcion1);
         } else {
-            pantalla.setText(opcion1 + " " + operador + " " + opcion2); 
+            pantalla.setText(opcion1 + " " + operador + " " + opcion2);
         }
     }
-    
+
     private String resultadoSuma(String numeroUno, String numeroDos) {
-        String resultado; 
-        int datoUno = Integer.parseInt(opcion1); 
+        String resultado;
+        int datoUno = Integer.parseInt(opcion1);
         int datoDos = Integer.parseInt(opcion2);
-        int suma = datoUno + datoDos;         
-        
+        int suma = datoUno + datoDos;
+
         return resultado = String.valueOf(suma);
     }
-    
+
+    private String resultadoResta(String numeroUno, String numeroDos) {
+        String resultado;
+        int datoUno = Integer.parseInt(opcion1);
+        int datoDos = Integer.parseInt(opcion2);
+        int resta = datoUno - datoDos;
+
+        return resultado = String.valueOf(resta);
+    }
+
+    private String resultadoMultiplicacion(String numeroUno, String numeroDos) {
+        String resultado;
+        int datoUno = Integer.parseInt(opcion1);
+        int datoDos = Integer.parseInt(opcion2);
+        int multiplicacion = datoUno * datoDos;
+
+        return resultado = String.valueOf(multiplicacion);
+    }
+
+    private String resultadoDivision(String numeroUno, String numeroDos) {
+        String resultado;
+        double datoUno = Integer.parseInt(opcion1);
+        double datoDos = Integer.parseInt(opcion2);
+        double division = datoUno / datoDos;
+
+        return resultado = String.valueOf(division);
+    }
 }

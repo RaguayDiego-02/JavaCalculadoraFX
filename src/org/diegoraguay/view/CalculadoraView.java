@@ -39,23 +39,23 @@ public class CalculadoraView {
         Button btnClean = nuevoBoton("C");
         Button btnCero = nuevoBoton("0");
         Button btnPunto = nuevoBoton(".");
-        Button btnIgual = nuevoBoton("=");
+        Button btnIgual =  botonOperacion("=");
         Button btnUno = nuevoBoton("1");
         Button btnDos = nuevoBoton("2");
         Button btnTres = nuevoBoton("3");
-        Button btnMas = nuevoBoton("+");
+        Button btnMas = botonOperacion("+");
         Button btnCuatro = nuevoBoton("4");
         Button btnCinco = nuevoBoton("5");
         Button btnSeis = nuevoBoton("6");
-        Button btnResta = nuevoBoton("-");
+        Button btnResta =  botonOperacion("-");
         Button btnSiete = nuevoBoton("7");
         Button btnOcho = nuevoBoton("8");
         Button btnNueve = nuevoBoton("9");
-        Button btnMultiplicacion = nuevoBoton("*");
-        Button btnRaizCuadrada = nuevoBoton("√");
-        Button btnElevar = nuevoBoton("^");
-        Button btnPorcentaje = nuevoBoton("%");
-        Button btnDividir = nuevoBoton("/");
+        Button btnMultiplicacion =  botonOperacion("*");
+        Button btnRaizCuadrada =  botonOperacion("√");
+        Button btnElevar =  botonOperacion("^");
+        Button btnPorcentaje =  botonOperacion("%");
+        Button btnDividir =  botonOperacion("/");
         
         //agregarlo al cuadro botones 
         cuadroBotones.add(btnClean, 0, 5); 
@@ -87,7 +87,6 @@ public class CalculadoraView {
     }
     
     private Button nuevoBoton (String texto) {
-        
         Button btn = new Button(texto);
         btn.setPrefSize(50, 50); 
         btn.setStyle("-fx-background-color: #4A6FA5; -fx-text-fill:white; -fx-background-radius:5px; -fx-cursor: hand;");
@@ -105,4 +104,24 @@ public class CalculadoraView {
         btn.setOnAction(e-> Controlador.procesoDeEntrada(texto, pantalla));
         return btn; 
     }
+    
+        private Button botonOperacion (String texto) {
+        Button btn = new Button(texto);
+        btn.setPrefSize(50, 50); 
+        btn.setStyle("-fx-background-color: #707070; -fx-text-fill:white; -fx-background-radius:5px; -fx-cursor: hand;");
+        
+        btn.setOnMousePressed(e -> {
+            btn.setStyle("-fx-background-color: #8C8C7A; -fx-text-fill:white;");
+            btn.setTranslateY(2);
+        });
+
+        btn.setOnMouseReleased(e -> {
+            btn.setStyle("-fx-background-color: #707070; -fx-text-fill:white; ");
+            btn.setTranslateY(0);
+        });
+        
+        btn.setOnAction(e-> Controlador.procesoDeEntrada(texto, pantalla));
+        return btn; 
+    }
+    
 }
