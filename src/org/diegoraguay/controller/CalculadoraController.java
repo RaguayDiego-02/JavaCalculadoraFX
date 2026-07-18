@@ -35,7 +35,7 @@ public class CalculadoraController {
                 opcion2 += entrada;
             }
             actualizarPantalla(pantalla);
-        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("×") || entrada.equals("÷")) {
+        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("×") || entrada.equals("÷") || entrada.equals("^")) {
 
             if (!opcion1.isEmpty()) {
                 operador = entrada;
@@ -55,6 +55,8 @@ public class CalculadoraController {
                     } else {
                         opcion1 = resultadoDivision(opcion1, opcion2);
                     }
+                } else if (operador.equals("^")) {
+                    opcion1 = resultadoPotencia(opcion1, opcion2);
                 }
                 operador = "";
                 opcion2 = "";
@@ -132,6 +134,20 @@ public class CalculadoraController {
             return formatearResultado(raizCuadrada);
         } catch (NumberFormatException e) {
             return "";
+        }
+    }
+    
+    private String resultadoPotencia(String numeroUno, String numeroDos) {
+        try {
+            double datoUno = Double.parseDouble(numeroUno);
+            double datoDos = Double.parseDouble(numeroDos);
+            double potencia = Math.pow(datoUno, datoDos);
+            if (Double.isNaN(potencia)) {
+                return "Error";
+            }
+            return formatearResultado(potencia);
+        } catch (NumberFormatException e) {
+            return "Error";
         }
     }
 
