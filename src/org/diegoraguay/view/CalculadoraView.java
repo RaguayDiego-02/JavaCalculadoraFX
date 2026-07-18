@@ -1,5 +1,5 @@
 package org.diegoraguay.view;
-
+ 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.diegoraguay.controller.CalculadoraController;
-
+ 
 public class CalculadoraView {
     private VBox view; 
     private Label pantalla; 
@@ -26,10 +26,10 @@ public class CalculadoraView {
         view.setStyle("-fx-background-color: #D3D3D3;"); 
         
         pantalla = new Label("0"); 
-        pantalla.setFont(Font.font("Consolas", FontWeight.BOLD, 40));
+        pantalla.setFont(Font.font("Rockwell", FontWeight.BOLD, 40));
         pantalla.setAlignment(Pos.CENTER_RIGHT); 
         pantalla.setPrefSize(235, 50); 
-        pantalla.setStyle("-fx-background-color: #F5F7FA;"); 
+        pantalla.setStyle("-fx-background-color: #F5F7FA; -fx-background-radius: 5px;"); 
         
         cuadroBotones = new GridPane(); 
         cuadroBotones.setHgap(10); //Interlineado entre elementos de la cuadricula
@@ -90,12 +90,13 @@ public class CalculadoraView {
         Button btn = new Button(texto);
         btn.setPrefSize(50, 50); 
         btn.setStyle("-fx-background-color: #4A6FA5; -fx-text-fill:white; -fx-background-radius:5px; -fx-cursor: hand;");
+        btn.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
         
         btn.setOnMousePressed(e -> {
             btn.setStyle("-fx-background-color: #33507A; -fx-text-fill:white;");
             btn.setTranslateY(2);
         });
-
+ 
         btn.setOnMouseReleased(e -> {
             btn.setStyle("-fx-background-color: #4A6FA5; -fx-text-fill:white; ");
             btn.setTranslateY(0);
@@ -109,12 +110,13 @@ public class CalculadoraView {
         Button btn = new Button(texto);
         btn.setPrefSize(50, 50); 
         btn.setStyle("-fx-background-color: #707070; -fx-text-fill:white; -fx-background-radius:5px; -fx-cursor: hand;");
+        btn.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
         
         btn.setOnMousePressed(e -> {
             btn.setStyle("-fx-background-color: #8C8C7A; -fx-text-fill:white;");
             btn.setTranslateY(2);
         });
-
+ 
         btn.setOnMouseReleased(e -> {
             btn.setStyle("-fx-background-color: #707070; -fx-text-fill:white; ");
             btn.setTranslateY(0);
