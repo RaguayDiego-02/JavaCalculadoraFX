@@ -66,6 +66,9 @@ public class CalculadoraController {
         } else if (entrada.equals("√")) {
             opcion1 = resultadoRaizCuadrada(opcion1);
             actualizarPantalla(pantalla);
+        } else if (entrada.equals("%")) {
+            opcion1 = resultadoPorcentaje(opcion1);
+            actualizarPantalla(pantalla);
         }
     }
     
@@ -83,6 +86,7 @@ public class CalculadoraController {
             double datoUno = Double.parseDouble(opcion1);
             double datoDos = Double.parseDouble(opcion2);
             double suma = datoUno + datoDos;
+            
             return formatearResultado(suma);
         } catch (NumberFormatException e) {
             return "Error";
@@ -94,6 +98,7 @@ public class CalculadoraController {
             double datoUno = Double.parseDouble(opcion1);
             double datoDos = Double.parseDouble(opcion2);
             double resta = datoUno - datoDos;
+            
             return formatearResultado(resta);
         } catch (NumberFormatException e) {
             return "Error";
@@ -131,6 +136,7 @@ public class CalculadoraController {
                 return "Error";
             }
             double raizCuadrada = Math.sqrt(datoUno);
+            
             return formatearResultado(raizCuadrada);
         } catch (NumberFormatException e) {
             return "";
@@ -148,6 +154,17 @@ public class CalculadoraController {
             return formatearResultado(potencia);
         } catch (NumberFormatException e) {
             return "Error";
+        }
+    }
+    
+      private String resultadoPorcentaje(String numeroUno) {
+        try {
+            double datoUno = Double.parseDouble(numeroUno);
+            double Porcentaje = datoUno/100; 
+            
+            return formatearResultado(Porcentaje);
+        } catch (NumberFormatException e) {
+            return "";
         }
     }
 
