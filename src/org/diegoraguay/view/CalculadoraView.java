@@ -51,11 +51,11 @@ public class CalculadoraView {
         Button btnSiete = nuevoBoton("7");
         Button btnOcho = nuevoBoton("8");
         Button btnNueve = nuevoBoton("9");
-        Button btnMultiplicacion =  botonOperacion("*");
+        Button btnMultiplicacion =  botonOperacion("×");
         Button btnRaizCuadrada =  botonOperacion("√");
         Button btnElevar =  botonOperacion("^");
         Button btnPorcentaje =  botonOperacion("%");
-        Button btnDividir =  botonOperacion("/");
+        Button btnDividir =  botonOperacion("÷");
         
         //agregarlo al cuadro botones 
         cuadroBotones.add(btnClean, 0, 5); 

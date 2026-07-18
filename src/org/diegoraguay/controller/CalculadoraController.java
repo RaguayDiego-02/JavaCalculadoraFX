@@ -35,8 +35,11 @@ public class CalculadoraController {
                 opcion2 += entrada;
             }
             actualizarPantalla(pantalla);
-        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("*") || entrada.equals("/")) {
-            operador = entrada;
+        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("×") || entrada.equals("÷")) {
+
+            if (!opcion1.isEmpty()) {
+                operador = entrada;
+            }
             actualizarPantalla(pantalla);
         } else if (entrada.equals("=")) {
             if (!opcion1.isEmpty() && !opcion2.isEmpty()) {
@@ -44,11 +47,11 @@ public class CalculadoraController {
                     opcion1 = resultadoSuma(opcion1, opcion2);
                 } else if (operador.equals("-")) {
                     opcion1 = resultadoResta(opcion1, opcion2);
-                } else if (operador.equals("*")) {
+                } else if (operador.equals("×")) {
                     opcion1 = resultadoMultiplicacion(opcion1, opcion2);
-                } else if (operador.equals("/")) {
+                } else if (operador.equals("÷")) {
                     if (opcion2.equals("0")) {
-                        opcion1 = "ERROR";
+                        opcion1 = "Error";
                     } else {
                         opcion1 = resultadoDivision(opcion1, opcion2);
                     }
@@ -57,6 +60,9 @@ public class CalculadoraController {
                 opcion2 = "";
                 calculoTerminado = true;
             } 
+            actualizarPantalla(pantalla);                
+        } else if (entrada.equals("√")) {
+            opcion1 = resultadoRaizCuadrada(opcion1);
             actualizarPantalla(pantalla);
         }
     }
@@ -71,38 +77,68 @@ public class CalculadoraController {
     }
 
     private String resultadoSuma(String numeroUno, String numeroDos) {
-        String resultado;
-        int datoUno = Integer.parseInt(opcion1);
-        int datoDos = Integer.parseInt(opcion2);
-        int suma = datoUno + datoDos;
-
-        return resultado = String.valueOf(suma);
+        try {
+            double datoUno = Double.parseDouble(opcion1);
+            double datoDos = Double.parseDouble(opcion2);
+            double suma = datoUno + datoDos;
+            return formatearResultado(suma);
+        } catch (NumberFormatException e) {
+            return "Error";
+        }
     }
 
     private String resultadoResta(String numeroUno, String numeroDos) {
-        String resultado;
-        int datoUno = Integer.parseInt(opcion1);
-        int datoDos = Integer.parseInt(opcion2);
-        int resta = datoUno - datoDos;
-
-        return resultado = String.valueOf(resta);
+        try {
+            double datoUno = Double.parseDouble(opcion1);
+            double datoDos = Double.parseDouble(opcion2);
+            double resta = datoUno - datoDos;
+            return formatearResultado(resta);
+        } catch (NumberFormatException e) {
+            return "Error";
+        }
     }
 
     private String resultadoMultiplicacion(String numeroUno, String numeroDos) {
-        String resultado;
-        int datoUno = Integer.parseInt(opcion1);
-        int datoDos = Integer.parseInt(opcion2);
-        int multiplicacion = datoUno * datoDos;
+        try {
+            double datoUno = Double.parseDouble(opcion1);
+            double datoDos = Double.parseDouble(opcion2);
+            double multiplicacion = datoUno * datoDos;
 
-        return resultado = String.valueOf(multiplicacion);
+            return formatearResultado(multiplicacion);
+        } catch (NumberFormatException e) {
+            return "Error";
+        }
     }
 
     private String resultadoDivision(String numeroUno, String numeroDos) {
-        String resultado;
-        double datoUno = Integer.parseInt(opcion1);
-        double datoDos = Integer.parseInt(opcion2);
-        double division = datoUno / datoDos;
+        try {
+            double datoUno = Double.parseDouble(opcion1);
+            double datoDos = Double.parseDouble(opcion2);
+            double division = datoUno / datoDos;
 
-        return resultado = String.valueOf(division);
+            return formatearResultado(division);
+        } catch (NumberFormatException e) {
+            return "Error";
+        }
+    }
+
+    private String resultadoRaizCuadrada(String numeroUno) {
+        try {
+            double datoUno = Double.parseDouble(numeroUno);
+            if (datoUno < 0) {
+                return "Error";
+            }
+            double raizCuadrada = Math.sqrt(datoUno);
+            return formatearResultado(raizCuadrada);
+        } catch (NumberFormatException e) {
+            return "";
+        }
+    }
+
+    private String formatearResultado(double valor) {
+        if (valor == Math.floor(valor) && !Double.isInfinite(valor)) {
+            return String.valueOf((long) valor);
+        }
+        return String.valueOf(valor);
     }
 }
