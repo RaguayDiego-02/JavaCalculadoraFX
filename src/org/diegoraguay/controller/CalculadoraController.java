@@ -35,7 +35,22 @@ public class CalculadoraController {
                 opcion2 += entrada;
             }
             actualizarPantalla(pantalla);
-        } else if (entrada.equals("+") || entrada.equals("-") || entrada.equals("×") || entrada.equals("÷") || entrada.equals("^")) {
+        } else if (entrada.equals("-")) {
+            //el "-" tiene doble funcion: signo negativo al inicio de un numero, o resta si ya hay numero escrito
+            if (operador.isEmpty()) {
+                if (opcion1.isEmpty()) {
+                    opcion1 = "-";
+                } else {
+                    operador = entrada;
+                }
+            } else {
+                if (opcion2.isEmpty()) {
+                    opcion2 = "-";
+                }
+            }
+
+            actualizarPantalla(pantalla);
+        } else if (entrada.equals("+") || entrada.equals("×") || entrada.equals("÷") || entrada.equals("^")) {
 
             if (!opcion1.isEmpty()) {
                 operador = entrada;
@@ -68,6 +83,9 @@ public class CalculadoraController {
             actualizarPantalla(pantalla);
         } else if (entrada.equals("%")) {
             opcion1 = resultadoPorcentaje(opcion1);
+            actualizarPantalla(pantalla);
+        } else if (entrada.equals(".")) {
+            agregarPunto();
             actualizarPantalla(pantalla);
         }
     }
@@ -165,6 +183,24 @@ public class CalculadoraController {
             return formatearResultado(Porcentaje);
         } catch (NumberFormatException e) {
             return "";
+        }
+    }
+      
+    private void agregarPunto() {
+        if (operador.isEmpty()) {
+            if (opcion1.isEmpty()) {
+                opcion1 = "0";
+            }
+            if (!opcion1.contains(".")) {
+                opcion1 += ".";
+            }
+        } else {
+            if (opcion2.isEmpty()) {
+                opcion2 = "0";
+            }
+            if (!opcion2.contains(".")) {
+                opcion2 += ".";
+            }
         }
     }
 
